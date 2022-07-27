@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
 import BuilderTitleInput from '../components/BuilderTitleInput';
+import FloatingButton from '../components/FloatingButton';
 import OptionSection from '../components/OptionSection';
 import PreviewSection from '../components/PreviewSection';
 import MainLayout from '../layouts/MainLayout';
@@ -28,6 +29,8 @@ function BuilderPage() {
     return 'loading';
   }
 
+  // PreviewSection, OptionSection 에서 직접 스토어의 survey를 가져와서 사용하는 이유.
+  // 서로간의 변경사항이 다른 컴포넌트에 렌더링 영향을 주지 않기 위해서 구분.
   return (
     <MainLayout selectedKeys={'builder'} padding={0}>
       <Row style={{ height: '100%' }}>
@@ -39,6 +42,7 @@ function BuilderPage() {
           <OptionSection />
         </Col>
       </Row>
+      <FloatingButton />
     </MainLayout>
   );
 }
