@@ -10,6 +10,8 @@ import OptionSection from '../components/OptionSection';
 import PreviewSection from '../components/PreviewSection';
 import MainLayout from '../layouts/MainLayout';
 import fetchSurvey from '../services/fetchSurvey';
+import { setSelectedQuestionId } from '../stores/selectedQuestionId/selectedQuestionIdSlice';
+import { setSurvey } from '../stores/survey/surveySlice';
 
 function BuilderPage() {
   const error = useSelector((state) => state.survey.error);
@@ -19,7 +21,18 @@ function BuilderPage() {
   const params = useParams();
 
   useEffect(() => {
-    dispatch(fetchSurvey(params.surveyId));
+    // surveyId 가 있으면, 수정 페이지...!
+    if (params.surveyId) {
+      dispatch(fetchSurvey(params.surveyId));
+    } else {
+      dispatch(
+        setSurvey({
+          title: '',
+          questions: [],
+        }),
+      );
+      dispatch(setSelectedQuestionId(null));
+    }
   }, [dispatch, params.surveyId]);
 
   if (error) {
