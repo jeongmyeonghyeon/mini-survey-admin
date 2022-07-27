@@ -64,14 +64,11 @@ function ListPage() {
         onRow={(record, rowIndex) => {
           return {
             onClick: (event) => {
-              console.log('onClick');
-              console.log(record.id);
-              console.log(rowIndex);
               navigate(`/builder/${record.id}`);
             },
           };
         }}
-        pagination={{ total: data.length, current: page, pageSize: PAGE_SIZE }}
+        pagination={{ total: data?.length, current: page, pageSize: PAGE_SIZE }}
         onChange={(pagination) => {
           setPage(pagination.current);
         }}

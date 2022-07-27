@@ -4,10 +4,22 @@ import { Link } from 'react-router-dom';
 
 const { Header, Content, Sider } = Layout;
 
-function MainLayout({ selectedKeys, children }) {
+function getItem(label, key, icon, children, type) {
+  return {
+    key,
+    icon,
+    children,
+    label,
+    type,
+  };
+}
+
+const items = [getItem('설문 조사 관리', 'list', <Link to="/list" />)];
+
+function MainLayout({ selectedKeys, children, padding = 45 }) {
   const contentStyle = useMemo(() => {
-    return { padding: 45 };
-  }, []);
+    return { padding };
+  }, [padding]);
 
   return (
     <Layout style={{ minHeight: '100vh' }}>
@@ -20,11 +32,12 @@ function MainLayout({ selectedKeys, children }) {
             background: 'rgba(255, 255, 255, 0.3)',
           }}
         />
-        <Menu theme="dark" selectedKeys={selectedKeys} mode="inline">
-          <Menu.Item key="list">
-            <Link to="/list">설문 조사 관리</Link>
-          </Menu.Item>
-        </Menu>
+        <Menu
+          theme="dark"
+          selectedKeys={selectedKeys}
+          mode="inline"
+          items={items}
+        />
       </Sider>
       <Layout>
         <Header />
